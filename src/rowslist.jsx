@@ -1,5 +1,5 @@
 import React from 'react';
-import SpecificRow from './specificrow.js';
+import SpecificRow from './specificrow.jsx';
 
 var RowsList = (props) => (
   <div>

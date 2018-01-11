@@ -1,5 +1,5 @@
 import React from 'react';
-import Game from './game.js'
+import Game from './game.jsx'
 
 
 class App extends React.Component {
