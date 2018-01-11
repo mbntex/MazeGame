@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "compile": "webpack --watch",
+    "postinstall": "webpack",
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
