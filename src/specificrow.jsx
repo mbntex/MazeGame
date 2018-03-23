@@ -9,7 +9,6 @@ var BackgroundHere = "https://www.spriters-resource.com/resources/sheets/45/4782
     var testSprite  = {
       width: '40px',
       height: '40px',
-      //background: url(twobytwoTransparent.gif 0 0) 0 0
       background: `url(twobytwoTransparent.gif) 0 0`
     }
 

@@ -1,3 +1,207 @@
+.row-container-center-style {
+  display: flex;
+  justify-content: center;
+}
+
+
+.row-container-vertical-style {
+  display: flex;
+  /*justify-content: center;*/
+  align-items: center;
+  flex-direction: column;
+}
+
+.main-background {
+  background-color: black;
+  margin: 0px;
+  padding: 0px 25px 25px 25px;
+}
+
+.game-instructions {
+  max-width: 546px;
+  padding: 0px 20px 0px 0px; 
+}
+
+.game-map-display {
+  border: 3px solid white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px;
+}
+
+p {
+  font-family: 'Press Start 2P', cursive;
+  color: yellow;
+}
+
+ul {
+  font-family: 'Press Start 2P', cursive;
+  color: yellow;
+}
+
+li {
+  padding: 5px;
+}
+
+#game-title {
+  font-family: 'Eagle Lake', cursive;
+  color: yellow;
+  /*text-decoration: underline;*/
+  font-size: 4em;
+  text-shadow: 5px 5px blue;
+  margin: 10px 0px 0px 0px;
+}
+
+.help-button {
+  background: linear-gradient(#0B6EB8, #08385B);
+  border: 3px solid white;
+  border-radius: 50%;
+  padding: 40px;
+  margin-top: 90px;
+  margin-right: 20px;
+  float: right;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 3em;
+  color: white;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+
+}
+
+.audio-control-style {
+  margin-top: 0px;
+  padding: 0px 20px 20px 20px;
+  margin-bottom: 15px;
+  background: linear-gradient(white, black);
+  border: 3px solid grey;
+  border-radius: 25px;
+}
+
+.mode-button {
+  padding: 15px 30px 15px 30px;
+  margin-top: 30px;
+  border: 5px solid yellow;
+  border-radius: 10px;
+  background: linear-gradient(yellow, black);
+  font-family: 'Press Start 2P', cursive;
+  color: black;
+}
+
+/*D PAD*/
+#touch-btn-up {
+  width: 49;
+  height: 55;
+  background: url(/dpad.png) -53px -2px;
+}
+
+#touch-btn-down {
+  width: 49;
+  height: 55;
+  background: url(/dpad.png) -53px -100px;
+}
+
+#touch-btn-left {
+  width: 54;
+  height: 50;
+  background: url(/dpad.png) -2px -53px;
+}
+
+#touch-btn-right {
+  width: 54;
+  height: 50;
+  background: url(/dpad.png) -100px -53px;
+}
+
+#touch-btn-center {
+  width: 54;
+  height: 51;
+  background: url(/dpad.png) -50px -53px;
+}
+
+#d-pad {
+  padding: 45px 45px 45px 45px;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 20px;
+  /*height: 200px; 
+  width: 200px;*/
+  /*height: 200px;
+  width: 200px;
+  border: 3px solid white;
+  border-radius: 50%;*/
+}
+
+#attack-button--close {
+  height: 60px;
+  width: 60px;
+  border: 3px solid white;
+  border-radius: 50%;
+  background-color: red;
+  margin-top: 10px;
+}
+
+#attack-button--close__entire-wrapper {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  /*font-family: 'Press*/ Start 2P', cursive;
+  font-size: 0.3em;
+}
+
+#attack-button--close__entire-wrapper > p {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.3em;
+  margin: 5px;
+}
+
+#attack-button--wall {
+  height: 60px;
+  width: 60px;
+  border: 3px solid white;
+  border-radius: 50%;
+  background-color: red;
+  margin-top: 10px;
+}
+
+#attack-button--wall__entire-wrapper {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  /*font-family: 'Press*/ Start 2P', cursive;
+  font-size: 0.3em;
+}
+
+
+
+
+
+
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 15px;
+  width: 200px;
+  height: 70px;
+  padding: 10px;
+  margin-left: 50px;
+}
+
+
+
+
+/*GAME FONT FOR 0 & 1 TEST FORMATTING*/
 .row {
   font-family: 'Roboto Mono', monospace;
 }

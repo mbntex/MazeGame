@@ -15,6 +15,7 @@ class Game extends React.Component {
   constructor() {
     super();
     this.state = {
+      gameEnded: false,
       gameMode: 'rotateThenMove',
       player: {row: 0, col: 0, attack: {row: 0, col: 1, closeAttackHappening: false, wallBuilds: []}, direction: 'right', icon: '>', alive: true, weapons: [], playerHealth: 2},
       monster: {row: 8, col: 7, attack: {row: 8, col: 6}, direction: 'left', icon: 'L', monsterHealth: 2, alive: true},
@@ -58,8 +59,8 @@ class Game extends React.Component {
     // this.attackChecker();
     // console.log('componentWillUpdate ran');
   }
-
-
+ 
+ 
   timerFn () {
     setInterval(this.monsterMover.bind(this), 1000);
     setInterval(this.wallReducer.bind(this), 1500);
@@ -148,18 +149,17 @@ class Game extends React.Component {
 
 
     var gameEnded = false;
-    if (this.state.monster.monsterHealth <= 0 && gameEnded === false) {
+    if (this.state.monster.monsterHealth <= 0 && this.state.gameEnded === false) {
       this.setState({mazeFixed: Levels.levelPlayerWinsF, mazeActive: Levels.levelPlayerWinsA, mazeRender: Levels.levelPlayerWinsR});
 
       //alert('Monster Dead!');
-      gameEnded = true;
+      this.setState({gameEnded: true});
     }
-    if (this.state.player.playerHealth <= 0 && gameEnded === false) {
+    if (this.state.player.playerHealth <= 0 && this.state.gameEnded === false) {
       //alert('Hero Dead!');
       //this.monsterWinsGame();
       this.setState({mazeFixed: Levels.levelMonsterWinsF, mazeActive: Levels.levelMonsterWinsA, mazeRender: Levels.levelMonsterWinsR});
-
-      gameEnded = true;
+      this.setState({gameEnded: true});
     }
   }
 
@@ -209,12 +209,15 @@ class Game extends React.Component {
     this.attackChecker();
   }
 
-
+/*HANDLES ALL INPUTS NOTE FUNCTIONS ARE VARIABLES INSIDE OF THIS*/
   playerInputHandlerFn (e) {
     var playerInstance = this.state.player;
     var mazeActiveInstance = this.state.mazeActive;
     var mazeRenderInstance = this.state.mazeRender;
     
+
+
+
 
     var attackCloseFn = (char) => {
       // console.log('attack close!');
@@ -270,6 +273,7 @@ class Game extends React.Component {
 
 
 
+
     if (e.keyCode === 32) { attackCloseFn(this.state.player); }
     if (e.keyCode === 87) { attackWallFn(this.state.player); }
     if (e.keyCode === 69 && this.state.player.weapons.indexOf('firewand') !== -1 ) { attackFireballFn(this.state.player); }
@@ -280,6 +284,24 @@ class Game extends React.Component {
       let {direction, row, col} = this.state.player;
       if (this.state.player.attack.closeAttackHappening === false) {
 
+        /*TOUCH BUTTONS*/ 
+        if(e.target.id === "touch-btn-up") {
+          e.keyCode = 38;
+        }
+        if(e.target.id === "touch-btn-down") {
+          e.keyCode = 40;
+        }
+        if(e.target.id === "touch-btn-left") {
+          e.keyCode = 37;
+        }
+        if(e.target.id === "touch-btn-right") {
+          e.keyCode = 39;
+        }
+        
+        
+
+
+        /*KEY MOVEMENT HANDLER*/
         if ((e.keyCode === 37) && (direction === 'left')) {
           if (this.state.mazeFixed[row][col -1] > -1) {
             if (this.state.mazeFixed[row][col -1] === 3)  { nextMazeLevel() } 
@@ -593,37 +615,63 @@ class Game extends React.Component {
   }
 
 
- 
-  
-  
-      
-
 
   render() {
     var buttonContent;
     this.state.gameMode === 'rotateThenMove' ? buttonContent = 'Rotate BEFORE Move' :  buttonContent = 'Rotate AND Move';
     var firewandReaout;
-    this.state.player.weapons.indexOf('firewand') !== -1 ? firewandReaout = <li>E = Energy Ball</li>: firewandReaout = <li></li>;
-    console.log('CALC HERE!');
+    this.state.player.weapons.indexOf('firewand') !== -1 ? firewandReaout = <li>E = Shoot Energy Ball</li>: firewandReaout = <li>PICK UP WAND FOR MORE!</li>;
+    // var gameStyle = {width: '100%', margin: 'auto', padding: '10px'};
     return (
       <div>
-      <audio controls autoPlay>
-        <source src="gamemusic.mp3" type="audio/mpeg" />
-        
-      </audio>
-        <p>Player Hitpoints: {this.state.player.playerHealth} </p>
-        <ul>Player Abilities: 
-          <li>Space = Attack</li> 
-          <li>W = Build Wall</li>
-          {firewandReaout}
-        </ul> 
-        <div>
+        <div className="row-container-vertical-style audio-control-style">
+          <p>AUDIO CONTROL</p>
+          <audio controls autoPlay>
+            <source src="gamemusic.mp3" type="audio/mpeg" />  
+          </audio>
+        </div>
+        <div className="row-container-center-style">
+          <div className="game-instructions">
+          <ul>Player Abilities: 
+            <li>Use Arrow Keys Or Icons To Move</li>
+            <li>Space = Attack Close Space</li> 
+            <li>W = Build Wall To Block Monster</li>
+            {firewandReaout}
+          </ul>
+          </div>
+        </div> 
+        <div className="row-container-center-style game-map-display">
           <RowsList data={this.state.mazeRender}/>
         </div>
         {/*<input id="gameinput" type="text" onKeyDown={this.playerInputHandlerFn.bind(this)}></input>*/}
-        <div>
-          <button id="rotation" onClick={this.changeGameMode.bind(this)}>{buttonContent}</button>
+        <div className="row-container-center-style">
+          <button className="mode-button" id="rotation" onClick={this.changeGameMode.bind(this)}>{buttonContent}</button>
         </div>
+        <div id="d-pad">
+          <div className="row-container-vertical-style">
+            <div id="touch-btn-up" onClick={this.playerInputHandlerFn.bind(this)}></div>
+            <div className="row-container-center-style">
+              <div id="touch-btn-left" onClick={this.playerInputHandlerFn.bind(this)}></div>
+              <div id="touch-btn-center"></div>
+              <div id="touch-btn-right" onClick={this.playerInputHandlerFn.bind(this)}></div>
+            </div>
+            <div id="touch-btn-down" onClick={this.playerInputHandlerFn.bind(this)}></div>
+          </div>
+          <div className="button-wrapper">
+            <div id="attack-button--close__entire-wrapper">
+              <div id="attack-button--close" onClick={this.playerInputHandlerFn.bind(this)}></div>
+              <p>Attack</p>
+            </div>
+            <div id="attack-button--close__entire-wrapper">
+              <div id="attack-button--wall" onClick={this.playerInputHandlerFn.bind(this)}></div>
+              <p>Wall</p>
+            </div>
+          </div>
+        </div>
+          {/*<button className="mode-button" id="touch-btn-up" onClick={this.playerInputHandlerFn.bind(this)}>U</button>
+          <button className="mode-button" id="touch-btn-down" onClick={this.playerInputHandlerFn.bind(this)}>D</button>
+          <button className="mode-button" id="touch-btn-left" onClick={this.playerInputHandlerFn.bind(this)}>L</button>
+          <button className="mode-button" id="touch-btn-right" onClick={this.playerInputHandlerFn.bind(this)}>R</button>*/}
       </div>
     )
   }

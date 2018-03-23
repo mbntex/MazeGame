@@ -6,7 +6,7 @@ var RowsList = (props) => (
     {props.data.map((item, i) => <SpecificRow info={item} key={i}/>)}
   </div>
   )
-
+ 
 
 export default RowsList;
 
