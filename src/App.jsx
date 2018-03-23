@@ -9,8 +9,6 @@ class App extends React.Component {
   }
  
   render() {
-    // var gameStyle = {backgroundColor:'black', color: 'white', width: '100%', margin: '0 auto'};
-    // var titleStyle = {color: 'lightblue', fontSize: '48px', padding: '5px', width: '100%', textAlign: 'center'};
     return (
       <div>
         <div className="row-container-center-style">

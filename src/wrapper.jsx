@@ -12,7 +12,7 @@ class Wrapper extends React.Component {
 
   helpFn() {
   window.alert(
-      '+ Use the arrow keys on your keypad or the buttons on the screen to move.\n + You can select the mode whether you want to automatically turn and move or to have turning separate from moving.\n+ Attacks: You can attack a monster next to you with the space bar.\n + Attacks: You can build a temporary wall with the \'W\' key.\n+ Attacks: If you have gotten the wand, you can shoot energy balls with the \'E\' key.\n+ You can go to the next level using the stairs.\n'
+      '+ Use the arrow keys on your keypad or the buttons on the screen to move.\n+ You can select the mode whether you want to automatically turn and move or to have turning separate from moving.\n+ Attacks: You can attack a monster next to you with the \'A\' button.\n+ Attacks: You can build a temporary wall with the \'W\' key.\n+ Attacks: If you have gotten the wand, you can shoot energy balls with the \'E\' key.\n+ You can go to the next level using the stairs.\n'
   ); 
  }
   
@@ -24,6 +24,7 @@ class Wrapper extends React.Component {
     return (
       <div>
       <button className="help-button" onClick={this.helpFn.bind(this)}>?</button>
+      <div className="help-button-mirrored-placeholder" onClick={this.helpFn.bind(this)}>?</div>
         <App />
       </div>
     )

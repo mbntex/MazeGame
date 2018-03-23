@@ -32,9 +32,17 @@ class Game extends React.Component {
 
 
   componentWillMount () {
+    // STOP ARROWS FROM SCROLLING SCREEN DURING USE
+    window.addEventListener("keydown", function(e) {
+        // space and arrow keys
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false);
+
     //console.log('componentWillMount ran');
     document.addEventListener("keydown", this.playerInputHandlerFn.bind(this));
-//onKeyDown={this.playerInputHandlerFn.bind(this)
+    document.addEventListener("onMouseUp", this.playerInputHandlerFn.bind(this));
     this.buildMazeFN();
     this.timerFn();
   }
@@ -56,10 +64,7 @@ class Game extends React.Component {
   }
 
   componentWillUpdate () {
-    // this.attackChecker();
-    // console.log('componentWillUpdate ran');
   }
- 
  
   timerFn () {
     setInterval(this.monsterMover.bind(this), 1000);
@@ -272,11 +277,24 @@ class Game extends React.Component {
     }
 
 
+    /*TOUCH BUTTONS PART 1*/ 
+    if(e.target.id === "attack-button--close") {
+      e.keyCode = 65;
+    }
+    if(e.target.id === "attack-button--wall") {
+      e.keyCode = 87;
+    }
+    if(e.target.id === "attack-button--energy") {
+      e.keyCode = 69;
+    }
 
 
-    if (e.keyCode === 32) { attackCloseFn(this.state.player); }
+    if (e.keyCode === 65) { attackCloseFn(this.state.player); }
     if (e.keyCode === 87) { attackWallFn(this.state.player); }
     if (e.keyCode === 69 && this.state.player.weapons.indexOf('firewand') !== -1 ) { attackFireballFn(this.state.player); }
+
+    // if (e.target.id === 'attack-button--close') { attackCloseFn(this.state.player); }
+    // if (e.target.id === 'attack-button--wall') { attackWallFn(this.state.player); }
 
     
     // CHARACHTER MOVE FN (KEEP ON TOP OF ROTATION TO HAVE ROTATION THEN MOVE LOGIC. REVERSE TO CHANGE THAT.)
@@ -284,7 +302,7 @@ class Game extends React.Component {
       let {direction, row, col} = this.state.player;
       if (this.state.player.attack.closeAttackHappening === false) {
 
-        /*TOUCH BUTTONS*/ 
+        /*TOUCH BUTTONS PART 2*/ 
         if(e.target.id === "touch-btn-up") {
           e.keyCode = 38;
         }
@@ -630,23 +648,11 @@ class Game extends React.Component {
             <source src="gamemusic.mp3" type="audio/mpeg" />  
           </audio>
         </div>
-        <div className="row-container-center-style">
-          <div className="game-instructions">
-          <ul>Player Abilities: 
-            <li>Use Arrow Keys Or Icons To Move</li>
-            <li>Space = Attack Close Space</li> 
-            <li>W = Build Wall To Block Monster</li>
-            {firewandReaout}
-          </ul>
-          </div>
-        </div> 
+        
         <div className="row-container-center-style game-map-display">
           <RowsList data={this.state.mazeRender}/>
         </div>
-        {/*<input id="gameinput" type="text" onKeyDown={this.playerInputHandlerFn.bind(this)}></input>*/}
-        <div className="row-container-center-style">
-          <button className="mode-button" id="rotation" onClick={this.changeGameMode.bind(this)}>{buttonContent}</button>
-        </div>
+        {/*<input id="gameinput" type="text" onKeyDown={this.playerInputHandlerFn.bind(this)}></input>*/}   
         <div id="d-pad">
           <div className="row-container-vertical-style">
             <div id="touch-btn-up" onClick={this.playerInputHandlerFn.bind(this)}></div>
@@ -666,12 +672,29 @@ class Game extends React.Component {
               <div id="attack-button--wall" onClick={this.playerInputHandlerFn.bind(this)}></div>
               <p>Wall</p>
             </div>
+            <div id="attack-button--wall__entire-wrapper">
+              <div id="attack-button--energy" onClick={this.playerInputHandlerFn.bind(this)}></div>
+              <p>Energy</p>
+            </div>
           </div>
         </div>
           {/*<button className="mode-button" id="touch-btn-up" onClick={this.playerInputHandlerFn.bind(this)}>U</button>
           <button className="mode-button" id="touch-btn-down" onClick={this.playerInputHandlerFn.bind(this)}>D</button>
           <button className="mode-button" id="touch-btn-left" onClick={this.playerInputHandlerFn.bind(this)}>L</button>
           <button className="mode-button" id="touch-btn-right" onClick={this.playerInputHandlerFn.bind(this)}>R</button>*/}
+        <div className="row-container-center-style">
+          <div className="game-instructions">
+          <ul>Player Abilities: 
+            <li>Use Arrow Keys Or Icons To Move</li>
+            <li>A = Attack Close</li> 
+            <li>W = Build Wall To Block Monster</li>
+            {firewandReaout}
+          </ul>
+          </div>
+        </div> 
+        <div className="row-container-center-style">
+          <button className="mode-button" id="rotation" onClick={this.changeGameMode.bind(this)}>{buttonContent}</button>
+        </div>
       </div>
     )
   }
